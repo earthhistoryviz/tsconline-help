@@ -1,4 +1,4 @@
-name: Deploy Development
+name: Deploy Environments via rsync
 
 on:
   push:
@@ -8,21 +8,31 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        env_name: [development, staging, production]
     environment:
-      name: development
+      name: ${{ matrix.env_name }}
       url: ${{ vars.WEBSITE_URL }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Copy files to server
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: |
-            ./**/*.md
-            ./**/
-          target: ${{ secrets.DEV_PATH }}
+
+      - name: Set up SSH key
+        run: |
+          echo "${{ secrets[format('SSH_PRIVATE_KEY_{0}', matrix.env_name)] }}" > key.pem
+          chmod 600 key.pem
+
+      - name: Rsync only .md files and directories
+        run: |
+          rsync -avz \
+            --include '*/' \
+            --include '*.md' \
+            --exclude '*' \
+            -e "ssh -i key.pem -o StrictHostKeyChecking=no" \
+            ./ ${{ secrets[format('SSH_USERNAME_{0}', matrix.env_name)] }}@${{ secrets[format('SSH_HOST_{0}', matrix.env_name)] }}:${{ secrets[format('DEPLOY_PATH_{0}', matrix.env_name)] }}
+
+      - name: Clean up key file
+        run: rm -f key.pem
