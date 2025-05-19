@@ -32,7 +32,7 @@ jobs:
             --include '*.md' \
             --exclude '*' \
             -e "ssh -i key.pem -o StrictHostKeyChecking=no" \
-            ./ ${{ secrets[format('SSH_USERNAME_{0}', matrix.env_name)] }}@${{ secrets[format('SSH_HOST_{0}', matrix.env_name)] }}:${{ secrets[format('DEPLOY_PATH_{0}', matrix.env_name)] }}
+            ./ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH }}
 
       - name: Clean up key file
         run: rm -f key.pem
