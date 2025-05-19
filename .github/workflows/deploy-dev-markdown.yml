@@ -22,7 +22,7 @@ jobs:
 
       - name: Set up SSH key
         run: |
-          echo "${{ secrets[format('SSH_PRIVATE_KEY_{0}', matrix.env_name)] }}" > key.pem
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > key.pem
           chmod 600 key.pem
 
       - name: Rsync only .md files and directories
