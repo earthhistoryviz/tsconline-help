@@ -27,7 +27,7 @@ jobs:
 
       - name: Rsync only .md files and directories
         run: |
-          rsync -avz \
+          rsync -avz --delete \
             --include '*.md' \
             --exclude '*' \
             -e "ssh -i key.pem -o StrictHostKeyChecking=no" \
