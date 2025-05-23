@@ -11,11 +11,6 @@ lastUpdated: "2025-05-12 15:32:00"
     <meta http-equiv="Content-Type" content="text/html"/>
     <title>Time Scale Creator File Format Guide</title>
 </head>
-<style>
-    body {
-        margin: 60px; /* Adds margin to the body element */
-    }
-</style>
 <body>
 <p>The TSCreator file format is structured as a tab-delimited text file. The tabs are used to separate cells, each cell containing some data. This structure means that the datafiles can be opened directly in a spreadsheet program like Excel or OpenOffice.org Calc. This is recommended because the cells will then neatly aligned. When done editing, save the file as a tab-delimited text file.</p>
 <p><strong>Note:</strong> TSCreator supports non-English characters through the Unicode character set (UTF-8 or UTF-16).</p>
