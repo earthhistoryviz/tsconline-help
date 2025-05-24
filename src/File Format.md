@@ -1,10 +1,3 @@
----
-title: "File Format"
-authoredBy: "admin"
-pathname: "file-format"
-lastUpdated: "2025-05-12 15:32:00"
----
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>

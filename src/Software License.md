@@ -1,10 +1,3 @@
----
-title: "Software License"
-authoredBy: "admin"
-pathname: "software-license"
-lastUpdated: "2025-05-12 15:32:00"
----
-
 <strong>TSCreator Pro</strong> is copyright (c) of Geologic TimeScale Foundation, hereafter named the
 &quot;Owner&quot;. All rights reserved, &quot;TSCreator&quot; and &quot;TSCreator Pro&quot; are trademarks
 of the &quot;Owner&quot;.
