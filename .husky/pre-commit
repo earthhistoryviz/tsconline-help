@@ -1,0 +1,11 @@
+#!/bin/bash
+
+non_md_files=$(find src -type f ! -name '*.md')
+
+if [ -n "$non_md_files" ]; then
+  echo "❌ Commit blocked: the following non-.md files were found in src/:"
+  echo "$non_md_files"
+  exit 1
+fi
+
+exit 0
