@@ -29,7 +29,6 @@ jobs:
         run: |
           rsync -avz --delete \
             --include 'src/*.md' \
-            --exclude '*' \
             -e "ssh -i key.pem -o StrictHostKeyChecking=no" \
             ./ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH }}
 
