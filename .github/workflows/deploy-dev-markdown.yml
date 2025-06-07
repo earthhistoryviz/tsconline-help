@@ -42,7 +42,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "filtered/*"
+          source: "."
           target: "${{ secrets.DEV_PATH }}"
           rm: true
       - name: Print files in DEV
