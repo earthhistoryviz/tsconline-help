@@ -33,17 +33,6 @@ jobs:
           source: "src"
           target: "${{ secrets.DEV_PATH }}"
           rm: true
-      - name: Print files in DEV
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            echo "Files in DEV directory:"
-            ls -la "${{ secrets.DEV_PATH }}"
-            echo "Current directory:"
-            pwd
 
       - name: Clean up key file
         run: rm -f key.pem
