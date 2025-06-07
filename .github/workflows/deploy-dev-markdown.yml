@@ -42,7 +42,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "filtered/src"
+          source: "./filtered/src"
           rm: true
           target: "${{ secrets.DEV_PATH }}"
 
