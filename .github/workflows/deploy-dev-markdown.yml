@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        env_name: [staging]
+        env_name: [development, staging]
     environment:
       name: ${{ matrix.env_name }}
       url: ${{ vars.WEBSITE_URL }}
@@ -24,18 +24,6 @@ jobs:
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > key.pem
           chmod 600 key.pem
-      - name: Filter only `.md` files with directory structure
-        run: |
-          mkdir filtered
-          find . -name '*.md' -exec bash -c '
-            for f; do
-              mkdir -p "filtered/$(dirname "$f")"
-              cp "$f" "filtered/$f"
-            done
-          ' bash {} +
-          echo "Filtered files:"
-          find filtered -type f -name '*.md' -exec echo {} \;
-
       - name: Upload filtered `.md` files
         uses: appleboy/scp-action@v1
         with:
