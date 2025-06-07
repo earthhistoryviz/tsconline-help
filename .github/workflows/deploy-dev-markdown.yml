@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        env_name: [development, staging, production]
+        env_name: [staging]
     environment:
       name: ${{ matrix.env_name }}
       url: ${{ vars.WEBSITE_URL }}
@@ -24,13 +24,25 @@ jobs:
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > key.pem
           chmod 600 key.pem
-
-      - name: Rsync only .md files and directories
+      - name: Filter only `.md` files with directory structure
         run: |
-          rsync -avz --delete \
-            --include 'src/*.md' \
-            -e "ssh -i key.pem -o StrictHostKeyChecking=no" \
-            ./ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH }}
+          mkdir filtered
+          find . -name '*.md' -exec bash -c '
+            for f; do
+              mkdir -p "filtered/$(dirname "$f")"
+              cp "$f" "filtered/$f"
+            done
+          ' bash {} +
+
+      - name: Upload filtered `.md` files
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "filtered/"
+          rm: true
+          target: "${{ secrets.DEV_PATH }}"
 
       - name: Clean up key file
         run: rm -f key.pem
