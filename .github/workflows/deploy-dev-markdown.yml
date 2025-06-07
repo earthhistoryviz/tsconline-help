@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        env_name: [development, staging]
+        env_name: [development, staging, production]
     environment:
       name: ${{ matrix.env_name }}
       url: ${{ vars.WEBSITE_URL }}
