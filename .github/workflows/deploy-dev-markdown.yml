@@ -46,7 +46,7 @@ jobs:
           rm: true
           target: "${{ secrets.DEV_PATH }}"
       - name: Print files in DEV
-        uses: appleboy/ssh-action@v0.1.4
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
